@@ -32,3 +32,17 @@ class AllocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Allocation
         fields = ['id', 'project', 'developer', 'hours']
+
+def validate(self, attrs):
+        project = attrs.get('project')
+        developer = attrs.get('developer')
+
+        # validate technologies
+        if project and developer:
+            project_technologies = set(project.technologies.all())
+            developer_technologies = set(developer.technologies.all())
+
+            if not developer_technologies.intersection(project_technologies):
+                raise serializers.ValidationError(
+                    f"The developer '{developer.name}' does not have the required technologies for the project '{project.name}'."
+                )
