@@ -135,7 +135,7 @@ DATABASES = {
 Use ferramentas como [Postman](https://www.postman.com/) ou [Insomnia](https://insomnia.rest/) para testar a API.
 
 ### 2. Endpoints Disponíveis
-Consulte a documentação dos endpoints Aqui
+Consulte a documentação dos endpoints [Aqui](https://127.0.0.1:8000/api/docs)
 
 ---
 
