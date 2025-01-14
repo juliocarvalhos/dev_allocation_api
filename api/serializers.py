@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Technology, Developer, Project, Allocation
+from datetime import date
 
 class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,7 +34,7 @@ class AllocationSerializer(serializers.ModelSerializer):
         model = Allocation
         fields = ['id', 'project', 'developer', 'hours']
 
-def validate(self, attrs):
+    def validate(self, attrs):
         project = attrs.get('project')
         developer = attrs.get('developer')
         hours = attrs.get('hours')
