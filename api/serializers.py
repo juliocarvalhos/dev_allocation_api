@@ -60,4 +60,13 @@ def validate(self, attrs):
                     f"Currently allocated: {total_hours_allocated} hours, planned: {project.planned_hours} hours."
                 )
             
+        # Validate Period
+        if project:
+            today = date.today()
+            if not (project.start_date <= today <= project.end_date):
+                raise serializers.ValidationError(
+                    f"The current date ({today}) is outside the project's start and end dates "
+                    f"({project.start_date} to {project.end_date})."
+                ) 
+
         return attrs
