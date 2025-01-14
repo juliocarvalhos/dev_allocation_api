@@ -36,6 +36,7 @@ class AllocationSerializer(serializers.ModelSerializer):
 def validate(self, attrs):
         project = attrs.get('project')
         developer = attrs.get('developer')
+        hours = attrs.get('hours')
 
         # validate technologies
         if project and developer:
@@ -46,3 +47,17 @@ def validate(self, attrs):
                 raise serializers.ValidationError(
                     f"The developer '{developer.name}' does not have the required technologies for the project '{project.name}'."
                 )
+            
+        # Validate hours
+        if project and hours:
+            current_allocations = project.allocations.all()
+            total_hours_allocated = sum(allocation.hours for allocation in current_allocations)
+            total_hours_with_new_allocation = total_hours_allocated + hours
+
+            if total_hours_with_new_allocation > project.planned_hours:
+                raise serializers.ValidationError(
+                    f"Allocating {hours} hours exceeds the planned hours for the project '{project.name}'. "
+                    f"Currently allocated: {total_hours_allocated} hours, planned: {project.planned_hours} hours."
+                )
+            
+        return attrs
