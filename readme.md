@@ -139,6 +139,10 @@ Consulte a documentação dos endpoints [Aqui](https://127.0.0.1:8000/api/docs)
 
 ---
 
+Veja em detalhes o [Desafio proposto](desafio_proposto.md)
+
+---
+
 ## Possíveis Problemas e Soluções
 
 1. **Erro de conexão com o banco de dados**:
