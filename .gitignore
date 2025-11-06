@@ -1,6 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
 venv/
-.env
-/api/__pycache__/
-/api/migrations/__pycache__/
-/dev_allocation/__pycache__/
 
+# Environment
+.env
+
+# Django
+staticfiles/
+*.sqlite3
+
+# Tooling
+.coverage
+htmlcov/
+.ruff_cache/

@@ -1,0 +1,18 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ"]
+
+[tool.ruff.format]
+quote-style = "preserve"
+
+[tool.coverage.run]
+source = ["api"]
+omit = ["*/migrations/*", "*/tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
