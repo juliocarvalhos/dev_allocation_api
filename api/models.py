@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Technology(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, unique=True)
@@ -25,20 +26,18 @@ class Project(models.Model):
     technologies = models.ManyToManyField(Technology, related_name='projects')
     planned_hours = models.PositiveIntegerField(editable=False)
 
-    def save(self, *args, **kwargs):
-        
-        # calculate planned_hours
-        # The hours are calculated assuming a 8 hours work day
-        if self.start_date and self.end_date:
-            days = (self.end_date - self.start_date).days + 1
-            self.planned_hours = days * 8
-        super().save(*args, **kwargs)
+    HOURS_PER_DAY = 8
 
     def __str__(self):
-        return ( 
-            f"{self.name}' | self.start_date to {self.end_date} |" 
-            f"technologies={[tech.name for tech in self.technologies.all()]}"
-        )
+        return f"{self.name} ({self.start_date} to {self.end_date})"
+
+    def save(self, *args, **kwargs):
+        # Planned hours = calendar days in the period (inclusive) * 8h work day.
+        if self.start_date and self.end_date:
+            days = (self.end_date - self.start_date).days + 1
+            self.planned_hours = days * self.HOURS_PER_DAY
+        super().save(*args, **kwargs)
+
 
 class Allocation(models.Model):
     id = models.AutoField(primary_key=True)
