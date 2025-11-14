@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+venv
+.env
+**/__pycache__
+*.pyc
+staticfiles
+.coverage
+htmlcov
+.ruff_cache
